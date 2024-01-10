@@ -17,8 +17,22 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class SafeWalkPage extends StatelessWidget {
+class SafeWalkPage extends StatefulWidget {
   const SafeWalkPage({Key? key}) : super(key: key); // Added named 'key' parameter
+
+  @override
+  _SafeWalkPageState createState() => _SafeWalkPageState();
+}
+
+class _SafeWalkPageState extends State<SafeWalkPage> {
+  double buttonWidth = 150.0;
+  bool isHovered = false;
+
+  void animateButton() {
+    setState(() {
+      buttonWidth = buttonWidth == 150.0 ? 200.0 : 150.0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,48 +56,86 @@ class SafeWalkPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 50), // Added 'const' keyword
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                minimumSize: MaterialStateProperty.all<Size?>(
-                    const Size(150, 0.1 * 300)), // Fixed type mismatch
-              ),
-              child: Text(
-                'LOGIN',
-                style: const TextStyle( // Added 'const' keyword
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 2,
+            AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              width: buttonWidth,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  overlayColor: MaterialStateProperty.all<Color>(
+                    isHovered ? Colors.grey : Colors.transparent,
+                  ),
+                ),
+                child: MouseRegion(
+                  onEnter: (_) {
+                    setState(() {
+                      isHovered = true;
+                    });
+                  },
+                  onExit: (_) {
+                    setState(() {
+                      isHovered = false;
+                    });
+                  },
+                  child: Text(
+                    'LOGIN',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2,
+                    ),
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 20), // Added 'const' keyword
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegisterPage()),
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                minimumSize: MaterialStateProperty.all<Size?>(
-                    const Size(150, 0.1 * 300)), // Fixed type mismatch
-              ),
-              child: Text(
-                'SIGN UP',
-                style: const TextStyle( // Added 'const' keyword
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 2,
+            AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              width: buttonWidth,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RegisterPage()),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  overlayColor: MaterialStateProperty.all<Color>(
+                    isHovered ? Colors.grey : Colors.transparent,
+                  ),
+                ),
+                child: MouseRegion(
+                  onEnter: (_) {
+                    setState(() {
+                      isHovered = true;
+                    });
+                  },
+                  onExit: (_) {
+                    setState(() {
+                      isHovered = false;
+                    });
+                  },
+                  child: Text(
+                    'SIGN UP',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2,
+                    ),
+                  ),
                 ),
               ),
             ),
