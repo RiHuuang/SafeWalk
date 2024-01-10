@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'register_page.dart';
+import 'package:safewalk/register_page.dart'; // Import the register page
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key); // Added named 'key' parameter to the constructor
@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
         body: Center(
           child: Container(
             width: 300,
-            height: 400,
+            height: 450,
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 224, 223, 223),
               borderRadius: BorderRadius.circular(20),
@@ -44,10 +44,11 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(height: 20), // Added 'const' keyword to improve performance
                 Image.asset(
                   'assets/safewalklogo.png',
-                  width: 100,
-                  height: 100,
+                  width: 100, // Set the desired width of the image
+                  height: 100, // Set the desired height of the image
                 ),
                 const SizedBox(height: 20), // Added 'const' keyword to improve performance
                 Text(
@@ -165,23 +166,19 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 10), // Added 'const' keyword to improve performance
-                ElevatedButton(
+                TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => RegisterPage()),
+                      MaterialPageRoute(builder: (context) => RegisterPage()), // Navigate to the register page
                     );
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 0, 0, 0), // Set the background color to match the login button
-                    elevation: 0,
-                    minimumSize: Size(150, 0.1 * 300), // Set the minimum size based on the width and height
-                  ),
                   child: Text(
-                    'REGISTER',
+                    "Haven't registered yet? Sign Up",
                     style: TextStyle(
-                      color: const Color.fromARGB(255, 255, 255, 255),
                       fontSize: 14,
+                      color: const Color.fromARGB(255, 61, 61, 61),
+                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
