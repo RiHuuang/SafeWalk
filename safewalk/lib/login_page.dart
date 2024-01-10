@@ -28,13 +28,13 @@ class _LoginPageState extends State<LoginPage> {
         body: Center(
           child: Container(
             width: 300,
-            height: 480,
+            height: 500,
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 224, 223, 223),
+              color: Color.fromARGB(255, 255, 255, 255),
               borderRadius: BorderRadius.circular(20),
               boxShadow: [ // Added 'const' keyword to improve performance
                 BoxShadow(
-                  color: const Color.fromARGB(255, 186, 186, 186).withOpacity(0.5),
+                  color: Color.fromARGB(255, 218, 218, 218).withOpacity(0.5),
                   spreadRadius: 5,
                   blurRadius: 10,
                   offset: Offset(0, 3),

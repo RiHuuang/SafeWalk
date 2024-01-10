@@ -29,9 +29,9 @@ class _RegisterPageState extends State<RegisterPage> {
         body: Center(
           child: Container(
             width: 300,
-            height: 600, // Increased the height of the container
+            height: 630, // Increased the height of the container
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 224, 223, 223),
+              color: Color.fromARGB(255, 255, 255, 255),
               borderRadius: BorderRadius.circular(20),
               boxShadow: [ // Added 'const' keyword to improve performance
                 BoxShadow(
