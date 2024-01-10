@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
         body: Center(
           child: Container(
             width: 300,
-            height: 450,
+            height: 480,
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 224, 223, 223),
               borderRadius: BorderRadius.circular(20),
@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const SizedBox(height: 20), // Added 'const' keyword to improve performance
                 Image.asset(
-                  'assets/safewalklogo.png',
+                  'assets/safewalk.png',
                   width: 100, // Set the desired width of the image
                   height: 100, // Set the desired height of the image
                 ),
@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: 0.8 * 300,
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: 'Username',
+                      hintText: 'Email/Username',
                       border: OutlineInputBorder(),
                     ),
                   ),

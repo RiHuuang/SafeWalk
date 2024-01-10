@@ -42,9 +42,9 @@ class _SafeWalkPageState extends State<SafeWalkPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/safewalklogo.png', // Path to your logo image
-              width: 150,
-              height: 150,
+              'assets/safewalk.png', // Path to your logo image
+              width: 250,
+              height: 250,
             ),
             const SizedBox(height: 10), // Added 'const' keyword
             Text(

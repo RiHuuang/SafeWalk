@@ -29,7 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
         body: Center(
           child: Container(
             width: 300,
-            height: 550, // Increased the height of the container
+            height: 600, // Increased the height of the container
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 224, 223, 223),
               borderRadius: BorderRadius.circular(20),
@@ -47,7 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
               children: [
                 const SizedBox(height: 20), // Added 'const' keyword to improve performance
                 Image.asset(
-                  'assets/safewalklogo.png',
+                  'assets/safewalk.png',
                   width: 100, // Set the desired width of the image
                   height: 100, // Set the desired height of the image
                 ),
@@ -75,7 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   width: 0.8 * 300,
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: 'Username',
+                      hintText: 'Email/Username',
                       border: OutlineInputBorder(),
                     ),
                   ),
