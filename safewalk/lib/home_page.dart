@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safewalk/contacts_page.dart';
 import 'package:safewalk/login_page.dart';
+import 'package:safewalk/settings_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -125,7 +126,7 @@ class HomePage extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
+                          MaterialPageRoute(builder: (context) => SettingsPage()),
                         );
                       },
                     ),
