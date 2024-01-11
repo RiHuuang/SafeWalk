@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safewalk/register_page.dart'; // Import the register page
+import 'package:safewalk/home_page.dart'; // Import the home page
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key); // Added named 'key' parameter to the constructor
@@ -118,6 +119,10 @@ class _LoginPageState extends State<LoginPage> {
                       });
                       if (isPasswordValid()) {
                         // TODO: Implement login functionality
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage()), // Navigate to the home page
+                        );
                       } else {
                         showDialog(
                           context: context,
