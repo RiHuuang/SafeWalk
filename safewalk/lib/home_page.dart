@@ -75,40 +75,54 @@ class HomePage extends StatelessWidget {
           ),
           Align( //NavBar (Bottom)
             alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 56,
-              color: Colors.black,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.home, color: Colors.white),
-                    onPressed: () {
-                      // Handle home icon press
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.contacts, color: Colors.white),
-                    onPressed: () {
-                      // Handle search icon press
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.settings, color: Colors.white),
-                    onPressed: () {
-                      // Handle notifications icon press
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.logout, color: Colors.white),
-                    onPressed: () {
-                      Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                    },
-                  ),
-                ],
+            child: GestureDetector(
+              onTap: () {
+                // Handle bottom nav bar tap
+              },
+              child: Container(
+                height: 56,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
+                      blurRadius: 4,
+                      offset: Offset(0, -2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.home, color: Colors.black),
+                      onPressed: () {
+                        // Handle home icon press
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.contacts, color: Colors.black),
+                      onPressed: () {
+                        // Handle contacts icon press
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.settings, color: Colors.black),
+                      onPressed: () {
+                        // Handle settings icon press
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.logout, color: Colors.black),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

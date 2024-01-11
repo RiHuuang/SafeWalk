@@ -10,6 +10,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String email = '';
   String password = '';
   bool showError = false;
   bool isHovered = false; // Track if the button is hovered
@@ -64,6 +65,11 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: 0.8 * 300,
                   child: TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        email = value;
+                      });
+                    },
                     decoration: InputDecoration(
                       hintText: 'Email/Username',
                       border: OutlineInputBorder(),
