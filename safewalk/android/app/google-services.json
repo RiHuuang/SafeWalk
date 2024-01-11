@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "566615878497",
+    "project_id": "safewalk-22885",
+    "storage_bucket": "safewalk-22885.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566615878497:android:dfd910c20c085be1a03320",
+        "android_client_info": {
+          "package_name": "com.example.safewalk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHX-Qd31xfCvp1EzWXz0d0Jg5JwT7r_KI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
