@@ -1,20 +1,59 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:safewalk/login_page.dart';
 
-class HomePage extends StatelessWidget {
+
+class HomePage extends StatefulWidget{
+  const HomePage({Key? key}) : super(key: key); // Added named 'key' parameter
+
   @override
-  Widget build(BuildContext context) {
+  State<HomePage> createState() => HomePageState();
+}
+
+class HomePageState extends State<HomePage> {
+  final Completer<GoogleMapController> _controller = Completer();
+  
+  @override
+  void dispose() {
+    _controller.future.then((controller) {
+      controller.dispose();
+    });
+    super.dispose();
+  }
+
+  // void getCurrentLocation() async {
+  //   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  // }
+
+  // void getCurrentLocation(GoogleMapController mapController) async {
+  //   Location location = await Location.fromPlatformDevice();
+  //   LatLng latLng = LatLng(location.latitude, location.longitude);
+  //   mapController.animateCamera(CameraUpdate.newLatLngZoom(latLng, 15.0));
+  //   // ... use the latLng to update your Google Map
+  // }
+
+  @override
+  Widget build(BuildContext context) { // Added missing build method
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/map_image.jpg'), // Replace with your map image asset path
-                fit: BoxFit.cover,
+          // Container(
+          //   color: const Color.fromARGB(255, 255, 255, 255),
+          //   child: 
+          // ),
+          GoogleMap(
+              // mapType: MapType.normal,
+              initialCameraPosition: const CameraPosition(
+                target: LatLng(-6.58916600, 106.79599900),
+                zoom: 14.4746,
               ),
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              },
             ),
-          ),
+
           Positioned(
             top: 36,
             left: 16,
@@ -22,16 +61,16 @@ class HomePage extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                    color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
+                    color: Color.fromRGBO(0, 0, 0, 0.4),
                     blurRadius: 4,
                     offset: Offset(0, 2),
                   ),
                 ],
               ),
               child: IconButton(
-                icon: Icon(Icons.person),
+                icon: const Icon(Icons.person), // Added const keyword
                 onPressed: () {
                   // Handle profile icon press
                 },
@@ -45,16 +84,16 @@ class HomePage extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                    color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
+                    color: Color.fromRGBO(0, 0, 0, 0.4),
                     blurRadius: 4,
                     offset: Offset(0, 2),
                   ),
                 ],
               ),
               child: IconButton(
-                icon: Icon(Icons.message),
+                icon: const Icon(Icons.message), // Added const keyword
                 onPressed: () {
                   // Handle message icon press
                 },
@@ -83,9 +122,9 @@ class HomePage extends StatelessWidget {
                 height: 56,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
-                      color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
+                      color: Color.fromRGBO(0, 0, 0, 0.4),
                       blurRadius: 4,
                       offset: Offset(0, -2),
                     ),
@@ -95,29 +134,29 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
-                      icon: Icon(Icons.home, color: Colors.black),
+                      icon: const Icon(Icons.home, color: Colors.black), // Added const keyword
                       onPressed: () {
                         // Handle home icon press
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.contacts, color: Colors.black),
+                      icon: const Icon(Icons.contacts, color: Colors.black), // Added const keyword
                       onPressed: () {
                         // Handle contacts icon press
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.settings, color: Colors.black),
+                      icon: const Icon(Icons.settings, color: Colors.black), // Added const keyword
                       onPressed: () {
                         // Handle settings icon press
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.logout, color: Colors.black),
+                      icon: const Icon(Icons.logout, color: Colors.black), // Added const keyword
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
+                          MaterialPageRoute(builder: (context) => const LoginPage()), // Added const keyword
                         );
                       },
                     ),

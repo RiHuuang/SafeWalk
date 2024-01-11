@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:safewalk/map.dart';
 import 'package:safewalk/register_page.dart'; // Import the register page
 import 'package:safewalk/home_page.dart'; // Import the home page
 
@@ -20,6 +21,13 @@ class _LoginPageState extends State<LoginPage> {
   bool isPasswordValid() {
     final password = passwordController.text;
     if (password.length < 8 || !password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return false;
+    }
+    return true;
+  }
+  
+  bool isEmailValid() {
+    if (!emailController.text.contains('@')) {
       return false;
     }
     return true;
@@ -78,6 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                     controller: emailController,
                     decoration: InputDecoration(
                       hintText: 'Email/Username',
+                      errorText: showError && !isEmailValid() ? 'Email must contain an @' : null,
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -134,6 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                             MaterialPageRoute(
                                 builder: (context) =>
                                     HomePage()), // Navigate to the home page
+                                    // MapScreen()),
                           );
                         }); // Sign in with email and password
                         

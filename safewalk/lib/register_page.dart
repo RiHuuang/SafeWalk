@@ -99,7 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   const SizedBox(height: 10), // Added 'const' keyword to improve performance
                                   FormContainerWidget(
                                     controller: emailController,
-                                    hintText: 'Email/Username',
+                                    hintText: 'Email',
                                     errorText: showError && !isEmailValid()
                                         ? 'Email must contain the @ symbol'
                                         : null,
