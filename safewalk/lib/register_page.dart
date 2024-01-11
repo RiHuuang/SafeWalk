@@ -62,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: const [ // Added 'const' keyword to improve performance
                             BoxShadow(
-                              color: Color.fromRGBO(186, 186, 186, 0.5),
+                              color: Color.fromRGBO(255, 255, 255, 0.498),
                               spreadRadius: 5,
                               blurRadius: 10,
                               offset: Offset(0, 3),
@@ -87,22 +87,28 @@ class _RegisterPageState extends State<RegisterPage> {
                                 color: Color.fromARGB(255, 0, 0, 0),
                               ),
                             ),
-                            const SizedBox(height: 20), // Added 'const' keyword to improve performance
+                            const SizedBox(height:20), // Added 'const' keyword to improve performance
                             Form(
                               key: _formKey, // Set the form key
                               child: Column(
                                 children: [
-                                  FormContainerWidget(
-                                    controller: usernameController,
-                                    hintText: 'Name',
+                                  FractionallySizedBox(
+                                    widthFactor: 1,
+                                    child: FormContainerWidget(
+                                      controller: usernameController,
+                                      hintText: 'Name',
+                                    ),
                                   ),
                                   const SizedBox(height: 10), // Added 'const' keyword to improve performance
-                                  FormContainerWidget(
-                                    controller: emailController,
-                                    hintText: 'Email/Username',
-                                    errorText: showError && !isEmailValid()
-                                        ? 'Email must contain the @ symbol'
-                                        : null,
+                                  FractionallySizedBox(
+                                    widthFactor: 1,
+                                    child: FormContainerWidget(
+                                      controller: emailController,
+                                      hintText: 'Email/Username',
+                                      errorText: showError && !isEmailValid()
+                                          ? 'Email must contain the @ symbol'
+                                          : null,
+                                    ),
                                   ),
                                   const SizedBox(height: 10), // Added 'const' keyword to improve performance
                                   TextFormField(

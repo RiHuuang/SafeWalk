@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:safewalk/contacts_page.dart';
+import 'package:safewalk/home_page.dart';
 import 'package:safewalk/login_page.dart';
 
-class HomePage extends StatelessWidget {
+class ContactsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,9 +10,10 @@ class HomePage extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/map_image.jpg'), // Replace with your map image asset path
-                fit: BoxFit.cover,
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
               ),
             ),
           ),
@@ -66,7 +67,7 @@ class HomePage extends StatelessWidget {
             top: 45,
             right: 0.5 * 312,
             child: const Text(
-              'SafeWalk',
+              'Contacts',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -107,15 +108,14 @@ class HomePage extends StatelessWidget {
                     IconButton(
                       icon: Icon(Icons.contacts, color: Colors.black),
                       onPressed: () {
-                        // Handle contacts icon press
-                        Navigator.push(
+                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => ContactsPage()),
                         );
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.shield_outlined , color: Colors.black),
+                      icon: Icon(Icons.shield_outlined, color: Colors.black),
                       onPressed: () {
                         // Handle settings icon press
                       },
@@ -134,8 +134,81 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
+          Positioned(
+            top: 100,
+            left: 16,
+            right: 16,
+            bottom: 56,
+            child: ListView.builder(
+              itemCount: contacts.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                    contacts[index].name,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(contacts[index].information),
+                      Text(contacts[index].email),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
   }
 }
+
+class Contact {
+  final String name;
+  final String information;
+  final String email;
+
+  Contact({
+    required this.name,
+    required this.information,
+    required this.email,
+  });
+}
+
+List<Contact> contacts = [
+  Contact(
+    name: 'John Doe',
+    information: 'Information about John Doe',
+    email: 'johndoe@example.com',
+  ),
+  Contact(
+    name: 'Jane Smith',
+    information: 'Information about Jane Smith',
+    email: 'janesmith@example.com',
+  ),
+  Contact(
+    name: 'Michael Johnson',
+    information: 'Information about Michael Johnson',
+    email: 'michaeljohnson@example.com',
+  ),
+  Contact(
+    name: 'Michael Johnson',
+    information: 'Information about Michael Johnson',
+    email: 'michaeljohnson@example.com',
+  ),
+  Contact(
+    name: 'Emily Davis',
+    information: 'Information about Emily Davis',
+    email: 'emilydavis@example.com',
+  ),
+  Contact(
+    name: 'David Wilson',
+    information: 'Information about David Wilson',
+    email: 'davidwilson@example.com',
+  )
+  //add contacts here
+];
