@@ -9,6 +9,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  String name = '';
+  String email = '';
   String password = '';
   String retypePassword = ''; // Added retypePassword variable
   bool showError = false;
@@ -64,6 +66,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 SizedBox(
                   width: 0.8 * 300,
                   child: TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        name = value;
+                      });
+                    },
                     decoration: InputDecoration(
                       hintText: 'Name', // Added 'Name' text field
                       border: OutlineInputBorder(),
@@ -74,6 +81,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 SizedBox(
                   width: 0.8 * 300,
                   child: TextField(
+                    onChanged: (value){
+                      setState(() {
+                        email = value;
+                      });
+                    }
+                    ,
                     decoration: InputDecoration(
                       hintText: 'Email/Username',
                       border: OutlineInputBorder(),
