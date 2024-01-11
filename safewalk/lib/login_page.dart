@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(20),
               boxShadow: const [ // Added 'const' keyword to improve performance
                 BoxShadow(
-                  color: Color.fromRGBO(255, 218, 218, 0.5),
+                  color: Color.fromRGBO(255, 255, 255, 0.494),
                   spreadRadius: 5,
                   blurRadius: 10,
                   offset: Offset(0, 3),

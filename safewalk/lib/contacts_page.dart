@@ -1,61 +1,23 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:safewalk/contacts_page.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:safewalk/home_page.dart';
 import 'package:safewalk/login_page.dart';
 import 'package:safewalk/settings_page.dart';
 
-
-class HomePage extends StatefulWidget{
-  const HomePage({Key? key}) : super(key: key); // Added named 'key' parameter
-
+class ContactsPage extends StatelessWidget {
   @override
-  State<HomePage> createState() => HomePageState();
-}
-
-class HomePageState extends State<HomePage> {
-  final Completer<GoogleMapController> _controller = Completer();
-  
-  @override
-  void dispose() {
-    _controller.future.then((controller) {
-      controller.dispose();
-    });
-    super.dispose();
-  }
-
-  // void getCurrentLocation() async {
-  //   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  // }
-
-  // void getCurrentLocation(GoogleMapController mapController) async {
-  //   Location location = await Location.fromPlatformDevice();
-  //   LatLng latLng = LatLng(location.latitude, location.longitude);
-  //   mapController.animateCamera(CameraUpdate.newLatLngZoom(latLng, 15.0));
-  //   // ... use the latLng to update your Google Map
-  // }
-
-  @override
-  Widget build(BuildContext context) { // Added missing build method
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // Container(
-          //   color: const Color.fromARGB(255, 255, 255, 255),
-          //   child: 
-          // ),
-          GoogleMap(
-              // mapType: MapType.normal,
-              initialCameraPosition: const CameraPosition(
-                target: LatLng(-6.58916600, 106.79599900),
-                zoom: 14.4746,
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
               ),
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
             ),
-
+          ),
           Positioned(
             top: 36,
             left: 16,
@@ -63,16 +25,16 @@ class HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                    color: Color.fromRGBO(0, 0, 0, 0.4),
+                    color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
                     blurRadius: 4,
                     offset: Offset(0, 2),
                   ),
                 ],
               ),
               child: IconButton(
-                icon: const Icon(Icons.person), // Added const keyword
+                icon: Icon(Icons.person),
                 onPressed: () {
                   // Handle profile icon press
                 },
@@ -86,16 +48,16 @@ class HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                    color: Color.fromRGBO(0, 0, 0, 0.4),
+                    color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
                     blurRadius: 4,
                     offset: Offset(0, 2),
                   ),
                 ],
               ),
               child: IconButton(
-                icon: const Icon(Icons.message), // Added const keyword
+                icon: Icon(Icons.message),
                 onPressed: () {
                   // Handle message icon press
                 },
@@ -106,7 +68,7 @@ class HomePageState extends State<HomePage> {
             top: 45,
             right: 0.5 * 312,
             child: const Text(
-              'SafeWalk',
+              'Contacts',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -124,9 +86,9 @@ class HomePageState extends State<HomePage> {
                 height: 56,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  boxShadow: const [
+                  boxShadow: [
                     BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.4),
+                      color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
                       blurRadius: 4,
                       offset: Offset(0, -2),
                     ),
@@ -136,7 +98,7 @@ class HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.home, color: Colors.black), // Added const keyword
+                      icon: Icon(Icons.home, color: Colors.black),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -145,23 +107,22 @@ class HomePageState extends State<HomePage> {
                       },
                     ),
                     IconButton(
-                      icon: const Icon(Icons.contacts, color: Colors.black), // Added const keyword
+                      icon: Icon(Icons.contacts, color: Colors.black),
                       onPressed: () {
-                        // Handle contacts icon press
-                        Navigator.push(
+                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => ContactsPage()),
                         );
                       },
                     ),
                     IconButton(
-                      icon: const Icon(Icons.settings, color: Colors.black), // Added const keyword
+                      icon: Icon(Icons.shield_outlined, color: Colors.black),
                       onPressed: () {
                         // Handle settings icon press
                       },
                     ),
                     IconButton(
-                      icon: const Icon(Icons.logout, color: Colors.black), // Added const keyword
+                      icon: Icon(Icons.settings, color: Colors.black),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -174,8 +135,81 @@ class HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          Positioned(
+            top: 100,
+            left: 16,
+            right: 16,
+            bottom: 56,
+            child: ListView.builder(
+              itemCount: contacts.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                    contacts[index].name,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(contacts[index].information),
+                      Text(contacts[index].email),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
   }
 }
+
+class Contact {
+  final String name;
+  final String information;
+  final String email;
+
+  Contact({
+    required this.name,
+    required this.information,
+    required this.email,
+  });
+}
+
+List<Contact> contacts = [
+  Contact(
+    name: 'John Doe',
+    information: 'Information about John Doe',
+    email: 'johndoe@example.com',
+  ),
+  Contact(
+    name: 'Jane Smith',
+    information: 'Information about Jane Smith',
+    email: 'janesmith@example.com',
+  ),
+  Contact(
+    name: 'Michael Johnson',
+    information: 'Information about Michael Johnson',
+    email: 'michaeljohnson@example.com',
+  ),
+  Contact(
+    name: 'Michael Johnson',
+    information: 'Information about Michael Johnson',
+    email: 'michaeljohnson@example.com',
+  ),
+  Contact(
+    name: 'Emily Davis',
+    information: 'Information about Emily Davis',
+    email: 'emilydavis@example.com',
+  ),
+  Contact(
+    name: 'David Wilson',
+    information: 'Information about David Wilson',
+    email: 'davidwilson@example.com',
+  )
+  //add contacts here
+];
