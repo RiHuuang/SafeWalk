@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:safewalk/register_page.dart'; // Import the register page
 import 'package:safewalk/home_page.dart'; // Import the home page
@@ -10,16 +12,24 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String email = '';
-  String password = '';
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   bool showError = false;
   bool isHovered = false; // Track if the button is hovered
 
   bool isPasswordValid() {
+    final password = passwordController.text;
     if (password.length < 8 || !password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
       return false;
     }
     return true;
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -34,9 +44,9 @@ class _LoginPageState extends State<LoginPage> {
             decoration: BoxDecoration(
               color: Color.fromARGB(255, 255, 255, 255),
               borderRadius: BorderRadius.circular(20),
-              boxShadow: [ // Added 'const' keyword to improve performance
+              boxShadow: const [ // Added 'const' keyword to improve performance
                 BoxShadow(
-                  color: Color.fromARGB(255, 218, 218, 218).withOpacity(0.5),
+                  color: Color.fromRGBO(255, 218, 218, 0.5),
                   spreadRadius: 5,
                   blurRadius: 10,
                   offset: Offset(0, 3),
@@ -65,11 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: 0.8 * 300,
                   child: TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        email = value;
-                      });
-                    },
+                    controller: emailController,
                     decoration: InputDecoration(
                       hintText: 'Email/Username',
                       border: OutlineInputBorder(),
@@ -80,11 +86,8 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: 0.8 * 300,
                   child: TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        password = value;
-                      });
-                    },
+                    controller: passwordController,
+                    obscureText: true,
                     decoration: InputDecoration(
                       hintText: 'Password',
                       border: OutlineInputBorder(),
@@ -125,17 +128,22 @@ class _LoginPageState extends State<LoginPage> {
                       });
                       if (isPasswordValid()) {
                         // TODO: Implement login functionality
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomePage()), // Navigate to the home page
-                        );
+                        FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text).then((value){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    HomePage()), // Navigate to the home page
+                          );
+                        }); // Sign in with email and password
+                        
                       } else {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: const Text('Invalid Password'), // Added 'const' keyword to improve performance
-                              content: const Text('Password must be at least 8 characters long and contain a special character.'), // Added 'const' keyword to improve performance
+                              content: const Text('Either Password or Email is incorrect.'), // Added 'const' keyword to improve performance
                               actions: [
                                 TextButton(
                                   onPressed: () {

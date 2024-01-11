@@ -11,15 +11,30 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  String name = '';
-  String email = '';
-  String password = '';
-  String retypePassword = ''; // Added retypePassword variable
+  final _formKey = GlobalKey<FormState>(); // Added form key
+
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController retypePasswordController = TextEditingController(); // Added retypePasswordController
+
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    retypePasswordController.dispose(); // Dispose retypePasswordController
+
+    super.dispose();
+  }
+
   bool showError = false;
   bool isHovered = false; // Track if the button is hovered
 
   bool isPasswordValid() {
-    if (password.length < 8 || !password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+    if (passwordController.text.length < 8 ||
+        !passwordController.text.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
       return false;
     }
     return true;
@@ -37,9 +52,9 @@ class _RegisterPageState extends State<RegisterPage> {
             decoration: BoxDecoration(
               color: Color.fromARGB(255, 255, 255, 255),
               borderRadius: BorderRadius.circular(20),
-              boxShadow: [ // Added 'const' keyword to improve performance
+              boxShadow: const [ // Added 'const' keyword to improve performance
                 BoxShadow(
-                  color: const Color.fromARGB(255, 186, 186, 186).withOpacity(0.5),
+                  color: Color.fromRGBO(186, 186, 186, 0.5),
                   spreadRadius: 5,
                   blurRadius: 10,
                   offset: Offset(0, 3),
@@ -65,65 +80,33 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 const SizedBox(height: 20), // Added 'const' keyword to improve performance
-                SizedBox(
-                  width: 0.8 * 300,
-                  child: TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        name = value;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Name', // Added 'Name' text field
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10), // Added 'const' keyword to improve performance
-                SizedBox(
-                  width: 0.8 * 300,
-                  child: TextField(
-                    onChanged: (value){
-                      setState(() {
-                        email = value;
-                      });
-                    }
-                    ,
-                    decoration: InputDecoration(
-                      hintText: 'Email/Username',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10), // Added 'const' keyword to improve performance
-                SizedBox(
-                  width: 0.8 * 300,
-                  child: TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        password = value;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      border: OutlineInputBorder(),
-                      errorText: showError && !isPasswordValid() ? 'Password must be at least 8 characters long and contain a special character' : null,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10), // Added 'const' keyword to improve performance
-                SizedBox(
-                  width: 0.8 * 300,
-                  child: TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        retypePassword = value;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Re-Type Password', // Added 'Re-Type Password' text field
-                      border: OutlineInputBorder(),
-                    ),
+                Form(
+                  key: _formKey, // Set the form key
+                  child: Column(
+                    children: [
+                      FormContainerWidget(
+                        controller: usernameController,
+                        hintText: 'Name',
+                      ),
+                      const SizedBox(height: 10), // Added 'const' keyword to improve performance
+                      FormContainerWidget(
+                        controller: emailController,
+                        hintText: 'Email/Username',
+                      ),
+                      const SizedBox(height: 10), // Added 'const' keyword to improve performance
+                      FormContainerWidget(
+                        controller: passwordController,
+                        hintText: 'Password',
+                        errorText: showError && !isPasswordValid()
+                            ? 'Password must be at least 8 characters long and contain a special character'
+                            : null,
+                      ),
+                      const SizedBox(height: 10), // Added 'const' keyword to improve performance
+                      FormContainerWidget(
+                        controller: retypePasswordController,
+                        hintText: 'Re-Type Password',
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 10), // Added 'const' keyword to improve performance
@@ -142,8 +125,23 @@ class _RegisterPageState extends State<RegisterPage> {
                       setState(() {
                         showError = true;
                       });
-                      if (isPasswordValid()) {
-                        // TODO: Implement login functionality
+                      if (_formKey.currentState!.validate() && isPasswordValid()) {
+                        // TODO: Implement registration functionality
+                        FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
+                                email: emailController.text,
+                                password: passwordController.text)
+                            .then((value) {
+                          print("Created New Account ${emailController.text} ${passwordController.text}");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ), // Navigate to the login page
+                          );
+                        }).onError((error, stackTrace) {
+                          print("Error: ${error.toString()}");
+                        });
                       } else {
                         showDialog(
                           context: context,
@@ -194,15 +192,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 10), // Added 'const' keyword to improve performance
                 TextButton(
                   onPressed: () {
-                    FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password).then((value) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                LoginPage()), // Navigate to the login page
-                      );
-                    });
-                    
+                    print("Clicked");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ), // Navigate to the login page
+                    );
                   },
                   child: Text(
                     'Already registered? Login', // Added text for login link
@@ -220,3 +216,36 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
+
+class FormContainerWidget extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final String? errorText;
+
+  const FormContainerWidget({
+    Key? key,
+    required this.controller,
+    required this.hintText,
+    this.errorText,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 0.8 * 300,
+      child: TextFormField(
+        controller: controller,
+        onChanged: (value) {
+          // Do something with the value
+        },
+        decoration: InputDecoration(
+          hintText: hintText,
+          border: OutlineInputBorder(),
+          errorText: errorText,
+        ),
+      ),
+    );
+  }
+  
+}
+
