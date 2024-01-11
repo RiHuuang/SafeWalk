@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:safewalk/login_page.dart'; // Import the login page
 
@@ -9,6 +11,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  String email = '' ;
   String password = '';
   String retypePassword = ''; // Added retypePassword variable
   bool showError = false;
@@ -179,10 +182,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 10), // Added 'const' keyword to improve performance
                 TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()), // Navigate to the login page
-                    );
+                    FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password).then((value) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LoginPage()), // Navigate to the login page
+                      );
+                    });
+                    
                   },
                   child: Text(
                     'Already registered? Login', // Added text for login link
