@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safewalk/login_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class HomePage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/map_image.png'), // Replace with your map image asset path
+                image: AssetImage('assets/map_image.jpg'), // Replace with your map image asset path
                 fit: BoxFit.cover,
               ),
             ),
@@ -20,9 +21,10 @@ class HomePage extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
+                color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
+                    color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
                     blurRadius: 4,
                     offset: Offset(0, 2),
                   ),
@@ -42,9 +44,10 @@ class HomePage extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
+                color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
+                    color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
                     blurRadius: 4,
                     offset: Offset(0, 2),
                   ),
@@ -70,7 +73,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          Align(
+          Align( //NavBar (Bottom)
             alignment: Alignment.bottomCenter,
             child: Container(
               height: 56,
@@ -99,7 +102,10 @@ class HomePage extends StatelessWidget {
                   IconButton(
                     icon: Icon(Icons.logout, color: Colors.white),
                     onPressed: () {
-                      // Handle menu icon press
+                      Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
                     },
                   ),
                 ],
