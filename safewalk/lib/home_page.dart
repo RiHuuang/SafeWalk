@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:safewalk/contacts_page.dart';
+import 'package:safewalk/profile_page.dart';
 import 'package:safewalk/settings_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -128,7 +129,10 @@ class HomePageState extends State<HomePage> {
                 child: IconButton(
                   icon: const Icon(Icons.person),
                   onPressed: () {
-                    // Handle profile icon press
+                    Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ProfileSettingsPage()),
+                          );
                   },
                 ),
               ),
@@ -151,7 +155,23 @@ class HomePageState extends State<HomePage> {
                 child: IconButton(
                   icon: const Icon(Icons.message),
                   onPressed: () {
-                    // Handle message icon press
+                    showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Maintenance!'),
+                        content: const Text('Mohon maaf, fitur ini sedang dalam pengembangan.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                   },
                 ),
               ),
@@ -210,7 +230,23 @@ class HomePageState extends State<HomePage> {
                       IconButton(
                         icon: const Icon(Icons.shield_outlined, color: Colors.black),
                         onPressed: () {
-                          // Handle settings icon press
+                          showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Maintenance!'),
+                        content: const Text('Mohon maaf, fitur ini sedang dalam pengembangan.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                         },
                       ),
                       IconButton(
