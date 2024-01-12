@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:safewalk/home_page.dart';
-import 'package:safewalk/login_page.dart';
 
-class ProfileSettingsPage extends StatelessWidget {
+class ProfileSettingsPage extends StatefulWidget {
+  @override
+  _ProfileSettingsPageState createState() => _ProfileSettingsPageState();
+}
+
+class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
+  String name = 'User 1';
+  TextEditingController _nameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,18 +29,69 @@ class ProfileSettingsPage extends StatelessWidget {
               ),
             ),
           ),
+          Container(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              name,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Name'),
+            leading: Icon(Icons.mode_edit_outline_outlined),
+            title: Text('Change Name'),
             onTap: () {
-              // Handle name tap
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Change Name'),
+                    content: TextField(
+                      controller: _nameController,
+                      decoration: InputDecoration(
+                        hintText: 'Enter your name',
+                      ),
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            name = _nameController.text;
+                          });
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Submit'),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
           ),
           ListTile(
             leading: Icon(Icons.lock),
             title: Text('Change Password'),
             onTap: () {
-              // Handle change password tap
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Maintenance!'),
+                    content: const Text('Sorry, this feature is currently under development.'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
           ),
         ],

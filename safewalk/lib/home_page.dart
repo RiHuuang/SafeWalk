@@ -160,7 +160,7 @@ class HomePageState extends State<HomePage> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: const Text('Maintenance!'),
-                        content: const Text('Mohon maaf, fitur ini sedang dalam pengembangan.'),
+                        content: const Text('Sorry, this features is currently under development.'),
                         actions: [
                           TextButton(
                             onPressed: () {
@@ -235,7 +235,7 @@ class HomePageState extends State<HomePage> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: const Text('Maintenance!'),
-                        content: const Text('Mohon maaf, fitur ini sedang dalam pengembangan.'),
+                        content: const Text('Sorry, this features is currently under development.'),
                         actions: [
                           TextButton(
                             onPressed: () {
