@@ -65,6 +65,7 @@ class HomePageState extends State<HomePage> {
     super.initState();
     _controller = Completer<GoogleMapController>();
     getCurrentLocation();
+    // setCustomMarkerIcon();
   }
 
   @override
