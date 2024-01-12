@@ -37,12 +37,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.24.2
   firebase_auth: ^4.16.0
+  flutter_svg: ^2.0.9
+  flutter_config: ^2.0.2
   firebase_app_check: ^0.2.1+8
   flutter_polyline_points: ^2.0.0
   google_maps_flutter: ^2.5.2
   location: ^5.0.3
-  flutter_svg: ^2.0.9
-  flutter_config: ^2.0.2
   permission_handler: ^11.1.0
   geolocator: ^10.1.0
 
@@ -73,6 +73,7 @@ flutter:
     - assets/safewalk.png
     - assets/safewalk.jpg
     - assets/map_image.jpg
+    - assets/images/Sample_User_Icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

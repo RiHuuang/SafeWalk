@@ -27,6 +27,10 @@ apply plugin: 'com.google.gms.google-services'
 // apply plugin: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
 
 android {
+    
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
     namespace "com.example.safewalk"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion

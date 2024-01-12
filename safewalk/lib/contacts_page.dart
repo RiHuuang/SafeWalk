@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:safewalk/home_page.dart';
-import 'package:safewalk/login_page.dart';
 import 'package:safewalk/settings_page.dart';
 
 class ContactsPage extends StatelessWidget {
