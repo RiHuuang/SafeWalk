@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:safewalk/home_page.dart';
 import 'package:safewalk/login_page.dart';
+import 'package:safewalk/profile_page.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -35,7 +37,10 @@ class SettingsPage extends StatelessWidget {
               child: IconButton(
                 icon: Icon(Icons.person),
                 onPressed: () {
-                  // Handle profile icon press
+                  Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ProfileSettingsPage()),
+                          );
                 },
               ),
             ),
@@ -58,7 +63,23 @@ class SettingsPage extends StatelessWidget {
               child: IconButton(
                 icon: Icon(Icons.message),
                 onPressed: () {
-                  // Handle message icon press
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Maintenance!'),
+                        content: const Text('Mohon maaf, fitur ini sedang dalam pengembangan.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
               ),
             ),
@@ -129,42 +150,125 @@ class SettingsPage extends StatelessWidget {
                   leading: Icon(Icons.person),
                   title: Text('Profile'),
                   onTap: () {
-                    // Handle profile tap
+                    Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ProfileSettingsPage()),
+                          );
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.gps_fixed),
                   title: Text('Location Sharing'),
                   onTap: () {
-                    // Handle profile tap
+                    showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Maintenance!'),
+                        content: const Text('Mohon maaf, fitur ini sedang dalam pengembangan.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.notifications_outlined),
                   title: Text('Notification'),
                   onTap: () {
-                    // Handle profile tap
+                    showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Maintenance!'),
+                        content: const Text('Mohon maaf, fitur ini sedang dalam pengembangan.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.emergency_outlined),
                   title: Text('Emergency Activate'),
                   onTap: () {
-                    // Handle profile tap
+                    showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Maintenance!'),
+                        content: const Text('Mohon maaf, fitur ini sedang dalam pengembangan.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.policy),
                   title: Text('Policy'),
                   onTap: () {
-                    // Handle profile tap
+                    showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Maintenance!'),
+                        content: const Text('Mohon maaf, fitur ini sedang dalam pengembangan.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.location_city),
                   title: Text('About'),
                   onTap: () {
-                    // Handle profile tap
+                    showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Maintenance!'),
+                        content: const Text('Mohon maaf, fitur ini sedang dalam pengembangan.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                   },
                 ),
                 ListTile(
