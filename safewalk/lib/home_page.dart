@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:safewalk/contacts_page.dart';
+import 'package:safewalk/emergency_page.dart';
 import 'package:safewalk/profile_page.dart';
 import 'package:safewalk/settings_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -19,6 +20,7 @@ class HomePageState extends State<HomePage> {
   LocationData? currentLocation;
   BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
   double? previousZoom;
+  bool isActive = false;
 
   void getCurrentLocation() async {
     Location location = Location();
@@ -83,34 +85,38 @@ class HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Stack(
           children: [
-            Container(
-              // Naekin dikit biar keliatan scaler nya
-              child: currentLocation == null
-                  ? const Center(child: CircularProgressIndicator())
-                  : GoogleMap(
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(
-                          currentLocation?.latitude ?? 0.0,
-                          currentLocation?.longitude ?? 0.0,
-                        ),
-                        zoom: previousZoom ?? 14.4746,
-                      ),
-                      markers: {
-                        Marker(
-                          markerId: const MarkerId("currentLocation"),
-                          icon: currentLocationIcon,
-                          position: LatLng(
+            Positioned(
+              bottom: 20.0,
+              child: 
+              Container(
+                // Naekin dikit biar keliatan scaler nya
+                child: currentLocation == null
+                    ? const Center(child: CircularProgressIndicator())
+                    : GoogleMap(
+                        initialCameraPosition: CameraPosition(
+                          target: LatLng(
                             currentLocation?.latitude ?? 0.0,
                             currentLocation?.longitude ?? 0.0,
                           ),
-                        )
-                      },
-                      onMapCreated: (GoogleMapController controller) {
-                        if (!_controller!.isCompleted) {
-                          _controller!.complete(controller);
-                        }
-                      },
-                    ),
+                          zoom: previousZoom ?? 14.4746,
+                        ),
+                        markers: {
+                          Marker(
+                            markerId: const MarkerId("currentLocation"),
+                            icon: currentLocationIcon,
+                            position: LatLng(
+                              currentLocation?.latitude ?? 0.0,
+                              currentLocation?.longitude ?? 0.0,
+                            ),
+                          )
+                        },
+                        onMapCreated: (GoogleMapController controller) {
+                          if (!_controller!.isCompleted) {
+                            _controller!.complete(controller);
+                          }
+                        },
+                      ),
+              ),
             ),
 
             Positioned(
@@ -190,81 +196,115 @@ class HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: GestureDetector(
-                onTap: () {
-                  // Handle bottom nav bar tap
+            Positioned(
+              bottom: 70,
+              left: 10,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    isActive = !isActive;
+                  });
                 },
-                child: Container(
-                  height: 56,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color.fromRGBO(0, 0, 0, 0.4),
-                        blurRadius: 4,
-                        offset: Offset(0, -2),
-                      ),
-                    ],
+                icon: Icon(
+                  isActive ? Icons.location_on : Icons.location_off,
+                  color: isActive ? Color.fromARGB(255, 255, 255, 255) : Color.fromARGB(255, 132, 132, 132),
+                ),
+                label: Text(
+                  isActive ? 'Tracked Status: Active' : 'Tracked Status: Inactive',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 147, 147, 147),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.home, color: Colors.black),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const HomePage()),
-                          );
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.contacts, color: Colors.black),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => ContactsPage()),
-                          );
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.shield_outlined, color: Colors.black),
-                        onPressed: () {
-                          showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Maintenance!'),
-                        content: const Text('Sorry, this features is currently under development.'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.settings, color: Colors.black),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => SettingsPage()),
-                          );
-                        },
-                      ),
-                    ],
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: isActive ? Color.fromARGB(255, 0, 0, 0) :Color.fromARGB(255, 255, 255, 255), // Use backgroundColor instead of primary
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
               ),
             ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: GestureDetector(
+                  onTap: () {
+                    // Handle bottom nav bar tap
+                  },
+                  child: Container(
+                    height: 56,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color.fromRGBO(0, 0, 0, 0.4),
+                          blurRadius: 4,
+                          offset: Offset(0, -2),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.home, color: Colors.black),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const HomePage()),
+                            );
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.contacts, color: Colors.black),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ContactsPage()),
+                            );
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.shield_outlined, color: Colors.black),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => EmergencyPage()),
+                            );
+                            // showDialog(
+                            //   context: context,
+                            //   builder: (BuildContext context) {
+                            //     return AlertDialog(
+                            //       title: const Text('Maintenance!'),
+                            //       content: const Text('Sorry, this features is currently under development.'),
+                            //       actions: [
+                            //         TextButton(
+                            //           onPressed: () {
+                            //             Navigator.of(context).pop();
+                            //           },
+                            //           child: const Text('OK'),
+                            //         ),
+                            //       ],
+                            //     );
+                            //   },
+                            // );
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.settings, color: Colors.black),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SettingsPage()),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),

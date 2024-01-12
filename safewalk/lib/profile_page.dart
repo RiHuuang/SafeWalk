@@ -49,23 +49,39 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     title: const Text('Change Name'),
-                    content: TextField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        hintText: 'Enter your name',
-                      ),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                            hintText: 'Enter your name',
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                if (_nameController.text.isNotEmpty) {
+                                  setState(() {
+                                    name = _nameController.text;
+                                  });
+                                  Navigator.of(context).pop();
+                                }
+                              },
+                              child: const Text('Submit'),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            name = _nameController.text;
-                          });
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Submit'),
-                      ),
-                    ],
                   );
                 },
               );
