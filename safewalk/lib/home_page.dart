@@ -84,6 +84,7 @@ class HomePageState extends State<HomePage> {
         child: Stack(
           children: [
             Container(
+              // Naekin dikit biar keliatan scaler nya
               child: currentLocation == null
                   ? const Center(child: CircularProgressIndicator())
                   : GoogleMap(
