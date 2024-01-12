@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safewalk/home_page.dart';
+import 'package:safewalk/profile_page.dart';
 import 'package:safewalk/settings_page.dart';
 
 class ContactsPage extends StatelessWidget {
@@ -35,7 +36,10 @@ class ContactsPage extends StatelessWidget {
               child: IconButton(
                 icon: Icon(Icons.person),
                 onPressed: () {
-                  // Handle profile icon press
+                  Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ProfileSettingsPage()),
+                          );
                 },
               ),
             ),
@@ -58,7 +62,23 @@ class ContactsPage extends StatelessWidget {
               child: IconButton(
                 icon: Icon(Icons.message),
                 onPressed: () {
-                  // Handle message icon press
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Maintenance!'),
+                        content: const Text('Mohon maaf, fitur ini sedang dalam pengembangan.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
               ),
             ),
