@@ -76,7 +76,7 @@ class _SafeWalkPageState extends State<SafeWalkPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(builder: (context) => LoginPage()),
                     );
                   },
                   style: ButtonStyle(
